@@ -69,7 +69,7 @@
             {% if child_groups %}
             {% for group in child_groups %}
             <tr>
-                <td><a href="{% url 'Config Management:_group_add_host' group_id=group.id %}">{{ group.name }}</a></td>
+                <td><a href="{% url 'Config Management:_group_view' pk=group.id %}">{{ group.name }}</a></td>
                 <td>{{ group.count_children }}</td>
                 <td>&nbsp;</td>
             </tr>
