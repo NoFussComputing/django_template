@@ -16,7 +16,10 @@ RUN apk add --update \
         build-base \
         curl-dev \
         libxml2-dev \
-        gettext
+        gettext \
+        mariadb-client \
+        mariadb-dev \
+        pkgconf
 
 RUN pip install --upgrade \
     setuptools \
@@ -66,7 +69,11 @@ COPY --from=build /tmp/python_builds /tmp/python_builds
 
 COPY includes/ /
 
-RUN pip install /tmp/python_builds/*.*; \
+RUN apk update --no-cache; \
+  apk add --no-cache \
+    mariadb-client \
+    mariadb-dev; \
+  pip install --no-cache-dir /tmp/python_builds/*.*; \
     python /app/manage.py collectstatic --noinput; \
     rm -rf /tmp/python_builds; \
     export
