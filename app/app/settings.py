@@ -233,6 +233,14 @@ if API_ENABLED:
     }
 
 DATETIME_FORMAT = 'j N Y H:i:s'
+#
+# Settings for unit tests
+#
+
+IN_TEST = 'testserver' in ALLOWED_HOSTS
+
+if IN_TEST:
+    SECRET_KEY = 'django-insecure-tests_are_being_run'
 
 #
 # Load user settings files
