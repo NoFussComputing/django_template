@@ -31,6 +31,29 @@ include:
       - template/automagic.gitlab-ci.yaml
 
 
+.MKDocs_Build_custom:
+  extends: .MKDocs_Build_Docs
+  image: python:3.11.2-bullseye
+  stage: build
+  variables:
+    GIT_DEPTH: 0
+    MKDOCS_BUILD_PATH: build
+    MKDOCS_SOURCE_PATH: docs
+    DEFAULT_ROOT_DIR: './gitlab-ci'
+  before_script:
+    - mkdir -p "$CI_PROJECT_DIR/artifacts/$CI_JOB_STAGE/$CI_JOB_NAME"
+    - if [ "0$JOB_ROOT_DIR" == "0" ]; then ROOT_DIR=$DEFAULT_ROOT_DIR; else ROOT_DIR=$JOB_ROOT_DIR ; fi
+    - echo "[DEBUG] ROOT_DIR[$ROOT_DIR]"
+    - pip -r $ROOT_DIR/mkdocs/requirements.txt;
+    # - if [ -f "requirements.txt" ]; then pip install --upgrade pip -r $ROOT_DIR/mkdocs/requirements.txt; pip install -r requirements.txt; fi
+    - if [ -f "website-template/requirements.txt" ]; then pip install -r website-template/requirements.txt; fi
+
+
+Documentation.Build:
+  extends: .MKDocs_Build_Docs
+  needs: [ 'Documentation.Lint' ]
+  resource_group: Documentation
+
 
 Docker Container:
   extends: .build_docker_container
