@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'drf_spectacular_sidecar',
     'config_management.apps.ConfigManagementConfig',
+    'project_management.apps.ProjectManagementConfig',
 ]
 
 MIDDLEWARE = [
@@ -307,7 +308,6 @@ if DEBUG:
     # Apps Under Development
     INSTALLED_APPS += [
         'information.apps.InformationConfig',
-        'project_management.apps.ProjectManagementConfig',
     ]
 
 
