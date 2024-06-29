@@ -227,7 +227,17 @@ if API_ENABLED:
 
 ## Authentication
 
-Authentication with the api is via Token. The token is placed in header `Authorization` with a value of `Token <Your Token>`.
+Access to the API is restricted and requires authentication. Available authentication methods are:
+
+- Session
+- Token
+
+Session authentication is made available after logging into the application via the login interface.
+
+Token authentication is via an API token that a user will generate within their 
+[settings panel](https://nofusscomputing.com/projects/django-template/user/user_settings/#api-tokens).
+
+Authentication with the api is via Token or session. The token is placed in header `Authorization` with a value of `Token <Your Token>`.
 
 ## Token Generation
 
